@@ -10,11 +10,15 @@ Window {
     height: dpi*7
 
     visible: true
+    minimumHeight: 500
+    minimumWidth: 1200
+    modality: Qt.WindowModal
+    flags: Qt.Window
     title: "MyProject0_0"
 
     Screen01 {
         id: mainScreen
     }
 
-}
 
+}

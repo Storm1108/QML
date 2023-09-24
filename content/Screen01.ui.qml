@@ -12,13 +12,12 @@ import QtQuick3D 6.5
 import MyProject0_0
 
 Column {
-    id: mainWin
-    property int dpi: Screen.pixelDensity * 25.4
-    width: dpi * 13
+
     height: dpi * 7
     layer.enabled: false
     focus: false
     anchors.fill: parent
+    state: ""
     antialiasing: false
     smooth: true
     clip: false
@@ -27,12 +26,27 @@ Column {
     //    property alias bottomLeftWidth: bottomLeft.width
     Rectangle {
         id: rectangle
-        color: "#e6e7eb"
+        color: "#000000"
         anchors.fill: parent
+        gradient: Gradient {
+            orientation: Gradient.Vertical
+            GradientStop {
+                position: 0
+                color: "#93a5cf"
+            }
+
+            GradientStop {
+                position: 1
+                color: "#e4efe9"
+            }
+        }
+        scale: 1
 
         View3D {
             id: view3D
             anchors.fill: parent
+            importScene: cubeModel
+            environment: sceneEnvironment
             anchors.bottomMargin: 100
             renderFormat: ShaderEffectSource.RGBA8
             camera: sceneCamera
@@ -81,11 +95,11 @@ Column {
 
             Rectangle {
                 id: topRight
+                width: bottomRight.width
+                height: topLeft.height
                 radius: 20
-                anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: parent.top
-                anchors.bottom: bottomRight.top
                 gradient: Gradient {
                     orientation: Gradient.Horizontal
                     GradientStop {
@@ -103,10 +117,47 @@ Column {
                         color: "#98fcd9df"
                     }
                 }
-                anchors.bottomMargin: 205
                 anchors.topMargin: 5
-                anchors.leftMargin: 5
                 anchors.rightMargin: 5
+
+                ScrollView {
+                    id: scrollView1
+                    anchors.fill: parent
+                    anchors.rightMargin: 10
+                    anchors.leftMargin: 10
+                    anchors.bottomMargin: 50
+                    anchors.topMargin: 10
+
+                    TextArea {
+                        id: textArea
+                        text: ""
+                        activeFocusOnPress: false
+                        selectByMouse: true
+                        font.pointSize: 15
+                        readOnly: true
+                        font.family: "Arial"
+                        placeholderText: qsTr("Отправленные команды")
+                    }
+                }
+
+                RoundButton {
+                    id: graf_btn
+                    x: 3
+                    y: 3
+                    height: 30
+                    radius: 10
+                    text: "Графики"
+                    anchors.bottom: parent.bottom
+                    font.letterSpacing: 1
+                    anchors.bottomMargin: 10
+                    font.pointSize: 18
+                    font.family: "GOST type A"
+                    baselineOffset: 13
+                    antialiasing: true
+                    layer.mipmap: true
+                    bottomPadding: 8
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
             }
 
             Rectangle {
@@ -272,7 +323,7 @@ Column {
                                 height: 30
                                 color: "#ffffff"
                                 radius: 10
-                                border.color: "#a9454aef"
+                                border.color: "#9c454aef"
                                 border.width: 2
                                 Text {
                                     id: rot_2_d
@@ -300,39 +351,47 @@ Column {
                             anchors.right: parent.right
                             anchors.top: parent.top
                             anchors.bottom: parent.bottom
-                            topPadding: 15
-                            Button {
-                                id: br_graf_btn
-                                opacity: 1
-                                text: qsTr("Графики")
-                                font.weight: Font.Normal
-                                wheelEnabled: false
-                                checkable: false
-                                font.pointSize: 19
-                                font.family: "GOST type A"
-                                icon.source: "images/kompas.png"
-                                display: AbstractButton.TextBesideIcon
-                                highlighted: false
-                                flat: false
-                            }
-
-                            Button {
-                                id: br_pi_btn
-                                text: qsTr("Button")
-                                highlighted: true
-                                antialiasing: true
-                                smooth: true
-                                font.capitalization: Font.MixedCase
-                                autoRepeat: false
-                                autoExclusive: false
-                                display: AbstractButton.TextBesideIcon
-                                checked: false
-                                checkable: true
-                                flat: false
-                            }
+                            topPadding: 0
                             anchors.leftMargin: 0
                             anchors.topMargin: 0
-                            spacing: 20
+                            spacing: 19
+
+                            Text {
+                                id: text1
+                                text: "Градусы"
+                                font.pixelSize: 20
+                                horizontalAlignment: Text.AlignHCenter
+                                font.weight: Font.ExtraBold
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                font.family: "GOST type A"
+                                textFormat: Text.RichText
+                            }
+
+                            Switch {
+                                id: switch1
+                                text: ""
+                                padding: 0
+                                leftPadding: 0
+                                bottomPadding: 0
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                rotation: 90
+                                rightPadding: 0
+                                topPadding: 0
+                                font.family: "GOST type A"
+                                display: AbstractButton.IconOnly
+                            }
+
+                            Text {
+                                id: text2
+                                text: "Радианы"
+                                color: switch1.checked ? "#011983" : "#000000"
+                                font.pixelSize: 20
+                                horizontalAlignment: Text.AlignHCenter
+                                font.weight: Font.ExtraBold
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                textFormat: Text.RichText
+                                font.family: "GOST type A"
+                            }
                         }
                         anchors.topMargin: 0
                     }
@@ -355,12 +414,13 @@ Column {
             topPadding: 5
             Rectangle {
                 id: topLeft
+                height: 235
                 color: "#79ccc1c1"
                 radius: 20
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: parent.top
-                anchors.bottom: parent.bottom
+                anchors.rightMargin: -100
                 gradient: Gradient {
                     orientation: Gradient.Horizontal
                     GradientStop {
@@ -378,10 +438,230 @@ Column {
                         color: "#82ffd8df"
                     }
                 }
-                anchors.bottomMargin: 410
                 anchors.topMargin: 5
-                anchors.rightMargin: 5
                 anchors.leftMargin: 5
+
+                Column {
+                    id: tl_col
+                    x: -5
+                    y: -5
+                    anchors.fill: parent
+                    bottomPadding: 10
+                    spacing: 0
+
+                    Text {
+                        id: text5
+                        text: "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\np, li { white-space: pre-wrap; }\nhr { height: 1px; border-width: 0; }\nli.unchecked::marker { content: \"\\2610\"; }\nli.checked::marker { content: \"\\2612\"; }\n</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'GOST type A'; font-size:16pt; font-weight:700;\">Ввод данных</span></p></body></html>"
+                        font.pixelSize: 18
+                        verticalAlignment: Text.AlignBottom
+                        topPadding: 5
+                        textFormat: Text.RichText
+                        font.bold: true
+                        font.family: "GOST type A"
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
+
+                    ToolSeparator {
+                        id: bl_Sep1
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.top: bl_Title.bottom
+                        leftPadding: 10
+                        anchors.rightMargin: 10
+                        anchors.leftMargin: 10
+                        wheelEnabled: false
+                        topPadding: 0
+                        orientation: Qt.Horizontal
+                        rightPadding: 10
+                        spacing: 0
+                        enabled: false
+                        bottomPadding: 10
+                        anchors.topMargin: 0
+                        hoverEnabled: false
+                    }
+
+                    Row {
+                        id: row
+                        width: 200
+                        height: 50
+                        bottomPadding: 0
+                        topPadding: 0
+                        spacing: 5
+                        leftPadding: 10
+
+                        Text {
+                            id: text8
+                            text: "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\np, li { white-space: pre-wrap; }\nhr { height: 1px; border-width: 0; }\nli.unchecked::marker { content: \"\\2610\"; }\nli.checked::marker { content: \"\\2612\"; }\n</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'GreekC_IV50'; font-size:18pt;\">f</span><span style=\" font-family:'Times New Roman','serif'; font-size:18pt; vertical-align:sub;\">Y</span><span style=\" font-size:18pt;\"> :</span></p></body></html>"
+                            elide: Text.ElideNone
+                            font.pixelSize: 12
+                            wrapMode: Text.NoWrap
+                            font.family: "GOST type A"
+                            textFormat: Text.RichText
+                        }
+
+                        Slider {
+                            id: slider_angl_y
+                            width: 260
+                            value: spin_angl_y.value
+                            antialiasing: true
+                            to: 360
+                            snapMode: RangeSlider.SnapOnRelease
+                            from: -360
+                        }
+
+                        MySpinBox {
+                            id: spin_angl_y
+                            activeFocusOnTab: true
+                            baselineOffset: 15
+                            bottomPadding: 5
+                            clip: false
+                            editable: true
+                            focusPolicy: Qt.ClickFocus
+                            font.family: "Courier"
+                            font.letterSpacing: -0.4
+                            value: slider_angl_y.value
+                            font.pointSize: 13
+                            from: -360
+                            leftInset: 0
+                            leftPadding: 25
+                            padding: 0
+                            rightInset: 0
+                            rightPadding: 25
+                            spacing: 0
+                            stepSize: 1
+                            to: 360
+                            topPadding: 5
+                            wheelEnabled: true
+                            width: 85
+                            wrap: true
+                        }
+                    }
+
+                    Row {
+                        id: row1
+                        width: 200
+                        height: 50
+                        spacing: 5
+                        leftPadding: 10
+
+                        Text {
+                            id: text7
+                            text: "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\np, li { white-space: pre-wrap; }\nhr { height: 1px; border-width: 0; }\nli.unchecked::marker { content: \"\\2610\"; }\nli.checked::marker { content: \"\\2612\"; }\n</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'GreekC_IV50'; font-size:18pt;\">w</span><span style=\" font-family:'Times New Roman','serif'; font-size:18pt; vertical-align:sub;\">Y</span><span style=\" font-size:18pt;\"> :</span></p></body></html>"
+                            elide: Text.ElideNone
+                            font.pixelSize: 12
+                            wrapMode: Text.NoWrap
+                            textFormat: Text.RichText
+                            font.family: "GOST type A"
+                        }
+
+                        Slider {
+                            id: slider_angl_z
+                            width: 260
+                            value: spin_angl_z.value
+                            snapMode: RangeSlider.SnapOnRelease
+                            antialiasing: true
+                            to: 360
+                            from: -360
+                        }
+
+                        MySpinBox {
+                            id: spin_angl_z
+                            width: 85
+                            font.letterSpacing: -0.4
+                            value: slider_angl_z.value
+                            leftInset: 0
+                            leftPadding: 25
+                            font.pointSize: 13
+                            wheelEnabled: true
+                            topPadding: 5
+                            activeFocusOnTab: true
+                            rightPadding: 25
+                            spacing: 0
+                            font.family: "Courier"
+                            baselineOffset: 15
+                            stepSize: 1
+                            rightInset: 0
+                            editable: true
+                            wrap: true
+                            padding: 0
+                            focusPolicy: Qt.ClickFocus
+                            bottomPadding: 5
+                            clip: false
+                            to: 360
+                            from: -360
+                        }
+                    }
+
+                    Row {
+                        id: row2
+                        width: 200
+                        height: 50
+                        spacing: 5
+                        leftPadding: 10
+
+                        Text {
+                            id: text9
+                            text: "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\np, li { white-space: pre-wrap; }\nhr { height: 1px; border-width: 0; }\nli.unchecked::marker { content: \"\\2610\"; }\nli.checked::marker { content: \"\\2612\"; }\n</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'GreekC_IV50'; font-size:18pt;\">f</span><span style=\" font-family:'Times New Roman','serif'; font-size:18pt; vertical-align:sub;\">Z</span><span style=\" font-family:'Times New Roman','serif'; font-size:18pt;\"> :</span></p></body></html>"
+                            elide: Text.ElideNone
+                            font.pixelSize: 12
+                            wrapMode: Text.NoWrap
+                            font.family: "GOST type A"
+                            textFormat: Text.RichText
+                        }
+
+                        Slider {
+                            id: slider_spd_z
+                            width: 260
+                            value: spin_spd_z.value
+                            snapMode: RangeSlider.SnapOnRelease
+                            antialiasing: true
+                            to: 360
+                            from: -360
+                        }
+
+                        MySpinBox {
+                            id: spin_spd_z
+                            width: 85
+                            font.letterSpacing: -0.4
+                            value: slider_spd_z.value
+                            leftInset: 0
+                            leftPadding: 25
+                            font.pointSize: 13
+                            wheelEnabled: true
+                            topPadding: 5
+                            activeFocusOnTab: true
+                            rightPadding: 25
+                            spacing: 0
+                            font.family: "Courier"
+                            baselineOffset: 15
+                            stepSize: 1
+                            rightInset: 0
+                            editable: true
+                            wrap: true
+                            padding: 0
+                            focusPolicy: Qt.ClickFocus
+                            bottomPadding: 5
+                            clip: false
+                            to: 360
+                            from: -360
+                        }
+                    }
+
+                    RoundButton {
+                        id: submit_btn
+                        height: 30
+                        radius: 10
+                        text: "Отправить"
+                        font.letterSpacing: 1
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        bottomPadding: 8
+                        font.pointSize: 18
+                        font.family: "GOST type A"
+                        baselineOffset: 13
+                        antialiasing: true
+                        layer.mipmap: true
+                    }
+                }
             }
 
             Rectangle {
@@ -395,22 +675,17 @@ Column {
                     orientation: Gradient.Vertical
                     GradientStop {
                         position: 0
-                        color: "#dad4ec"
-                    }
-
-                    GradientStop {
-                        position: 0.00685
-                        color: "#8bdad4ec"
+                        color: "#90dad4ec"
                     }
 
                     GradientStop {
                         position: 0.01
-                        color: "#84dad4ec"
+                        color: "#79dad4ec"
                     }
 
                     GradientStop {
                         position: 1
-                        color: "#90ffd8df"
+                        color: "#79ffd4dc"
                     }
                 }
                 baselineOffset: 0
@@ -479,7 +754,7 @@ Column {
                             anchors.rightMargin: 75
                             leftPadding: 20
                             verticalItemAlignment: Grid.AlignVCenter
-                            horizontalItemAlignment: Grid.AlignLeft
+                            horizontalItemAlignment: Grid.AlignHCenter
                             anchors.topMargin: 0
                             spacing: 10
                             rows: 4
@@ -595,24 +870,52 @@ Column {
                             anchors.right: parent.right
                             anchors.top: parent.top
                             anchors.bottom: parent.bottom
-                            topPadding: 15
+                            topPadding: 0
                             spacing: 20
                             anchors.leftMargin: 0
                             anchors.topMargin: 0
 
-                            Button {
-                                id: bl_graf_btn
-                                text: qsTr("Button")
+                            Text {
+                                id: text10
+                                text: "Градусы"
+                                font.pixelSize: 20
+                                horizontalAlignment: Text.AlignHCenter
+                                font.weight: Font.ExtraBold
+                                font.family: "GOST type A"
+                                textFormat: Text.RichText
+                                anchors.horizontalCenter: parent.horizontalCenter
                             }
 
-                            Button {
-                                id: bl_pi_btn
-                                text: qsTr("Button")
+                            Switch {
+                                id: switch3
+                                text: ""
+                                leftPadding: 0
+                                topPadding: 0
+                                rightPadding: 0
+                                display: AbstractButton.IconOnly
+                                font.family: "GOST type A"
+                                padding: 0
+                                rotation: 90
+                                bottomPadding: 0
+                                anchors.horizontalCenter: parent.horizontalCenter
+                            }
+
+                            Text {
+                                id: text6
+                                color: switch3.checked ? "#011983" : "#000000"
+                                text: "Радианы"
+                                font.pixelSize: 20
+                                horizontalAlignment: Text.AlignHCenter
+                                font.weight: Font.ExtraBold
+                                font.family: "GOST type A"
+                                textFormat: Text.RichText
+                                anchors.horizontalCenter: parent.horizontalCenter
                             }
                         }
                     }
                 }
             }
+
             anchors.bottomMargin: 20
             bottomPadding: 5
             leftPadding: 5
@@ -632,7 +935,7 @@ Column {
             smooth: true
             mirror: false
             asynchronous: true
-            rotation: 45
+            rotation: 112
             fillMode: Image.PreserveAspectFit
         }
 
@@ -647,7 +950,7 @@ Column {
             source: "images/kompas.png"
             anchors.rightMargin: 30
             autoTransform: true
-            rotation: 162
+            rotation: 81
             mirror: false
             mipmap: true
             anchors.bottomMargin: 30
