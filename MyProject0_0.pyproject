@@ -1,0 +1,20 @@
+{
+    "files": [
+        "main.py",
+        "style.qrc"
+        "style_rc.py"
+        "qtquickcontrols2.conf"
+        "main/fonts/fonts.txt"
+        "main/fonts/GOST_A.TTF"
+        "main/images/kompas.png"
+        "main/images/scaling.png"
+        "main/App.qml"
+        "main/MyScrollView.qml"
+        "main/MySlider.qml"
+        "main/MySpinBox.qml"
+        "main/MyTextArea.qml"
+        "main/MyTextField.qml"
+        "main/pomenat.png"
+        "main/Screen01.qml"
+    ]
+}
