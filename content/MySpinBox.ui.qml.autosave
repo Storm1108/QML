@@ -13,6 +13,7 @@ SpinBox {
         border.color: spinBox.activeFocus ? "#a9454aef" : "#797979"
 
     }
+    
 
     Item {
         id: __materialLibrary__
