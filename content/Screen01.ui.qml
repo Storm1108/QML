@@ -12,7 +12,6 @@ import QtQuick3D 6.5
 import MyProject0_0
 
 Column {
-
     height: dpi * 7
     layer.enabled: false
     focus: false
@@ -22,7 +21,7 @@ Column {
     smooth: true
     clip: false
     property alias bottomLeftHeight: bottomLeft.height
-
+    signal grad_toggle_left(bool check)
     //    property alias bottomLeftWidth: bottomLeft.width
     Rectangle {
         id: rectangle
@@ -743,130 +742,180 @@ Column {
                         anchors.bottom: parent.bottom
                         anchors.topMargin: 0
 
-                        Grid {
-                            id: bl_Grid
+                        Column {
+                            id: column
+                            width: 200
+                            height: 400
                             anchors.left: parent.left
-                            anchors.right: parent.right
                             anchors.top: parent.top
                             anchors.bottom: parent.bottom
-                            flow: Grid.LeftToRight
-                            layoutDirection: Qt.LeftToRight
-                            anchors.rightMargin: 75
                             leftPadding: 20
-                            verticalItemAlignment: Grid.AlignVCenter
-                            horizontalItemAlignment: Grid.AlignHCenter
+                            anchors.leftMargin: 0
+                            anchors.bottomMargin: 0
                             anchors.topMargin: 0
                             spacing: 10
-                            rows: 4
-                            columns: 2
 
-                            Text {
-                                id: angl_1
-                                text: "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\np, li { white-space: pre-wrap; }\nhr { height: 1px; border-width: 0; }\nli.unchecked::marker { content: \"\\2610\"; }\nli.checked::marker { content: \"\\2612\"; }\n</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n<p align=\"right\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:18pt;\"> </span><span style=\" font-family:'GOST type A'; font-size:18pt;\">           Угол:</span></p></body></html>"
-                                font.pixelSize: 12
-                                textFormat: Text.RichText
-                            }
-
-                            Rectangle {
-                                id: angl_r1
-                                width: 50
-                                height: 30
-                                color: "#ffffff"
-                                radius: 10
-                                border.color: "#a9454aef"
-                                border.width: 2
+                            Row {
+                                id: row3
+                                spacing: 10
 
                                 Text {
-                                    id: angl_1_d
-                                    text: "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\np, li { white-space: pre-wrap; }\nhr { height: 1px; border-width: 0; }\nli.unchecked::marker { content: \"\\2610\"; }\nli.checked::marker { content: \"\\2612\"; }\n</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'GOST type A'; font-size:18pt;\">90</span></p></body></html>"
+                                    id: angl_1
+                                    text: "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\np, li { white-space: pre-wrap; }\nhr { height: 1px; border-width: 0; }\nli.unchecked::marker { content: \"\\2610\"; }\nli.checked::marker { content: \"\\2612\"; }\n</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n<p align=\"right\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'GOST type A'; font-size:18pt;\">Угол:</span></p></body></html>"
                                     anchors.verticalCenter: parent.verticalCenter
                                     font.pixelSize: 12
+                                    verticalAlignment: Text.AlignTop
                                     textFormat: Text.RichText
-                                    anchors.horizontalCenter: parent.horizontalCenter
+                                }
+
+                                Rectangle {
+                                    id: angl_r1
+                                    width: 50
+                                    height: 30
+                                    color: "#ffffff"
+                                    radius: 10
+                                    border.color: "#a9454aef"
+                                    border.width: 2
+
+                                    Text {
+                                        id: angl_1_d
+                                        text: "90"
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        font.pixelSize: 24
+                                        font.family: "GOST type A"
+                                        textFormat: Text.RichText
+                                        anchors.horizontalCenter: parent.horizontalCenter
+                                    }
+
+                                    Text {
+                                        id: angl_1_i
+                                        text: "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\np, li { white-space: pre-wrap; }\nhr { height: 1px; border-width: 0; }\nli.unchecked::marker { content: \"\\2610\"; }\nli.checked::marker { content: \"\\2612\"; }\n</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'GOST type A'; font-size:18pt;\">град.</span></p></body></html>"
+                                        anchors.left: parent.left
+                                        font.pixelSize: 12
+                                        topPadding: 3
+                                        leftPadding: 60
+                                        anchors.leftMargin: 0
+                                        textFormat: Text.RichText
+                                    }
                                 }
                             }
 
-                            Text {
-                                id: spd_1
-                                text: "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\np, li { white-space: pre-wrap; }\nhr { height: 1px; border-width: 0; }\nli.unchecked::marker { content: \"\\2610\"; }\nli.checked::marker { content: \"\\2612\"; }\n</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n<p align=\"right\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'GOST type A'; font-size:18pt;\">       Скорость:</span></p></body></html>"
-                                font.pixelSize: 12
-                                textFormat: Text.RichText
-                            }
-
-                            Rectangle {
-                                id: spd_r1
-                                width: angl_r1.width
-                                height: angl_r1.height
-                                color: "#ffffff"
-                                radius: 10
-                                border.color: "#a9454aef"
-                                border.width: 2
+                            Row {
+                                id: row4
+                                spacing: 10
 
                                 Text {
-                                    id: spd_1_d
-                                    text: "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\np, li { white-space: pre-wrap; }\nhr { height: 1px; border-width: 0; }\nli.unchecked::marker { content: \"\\2610\"; }\nli.checked::marker { content: \"\\2612\"; }\n</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'GOST type A'; font-size:18pt;\">96</span></p></body></html>"
-                                    anchors.verticalCenter: parent.verticalCenter
+                                    id: spd_1
+                                    text: "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\np, li { white-space: pre-wrap; }\nhr { height: 1px; border-width: 0; }\nli.unchecked::marker { content: \"\\2610\"; }\nli.checked::marker { content: \"\\2612\"; }\n</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n<p align=\"right\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'GOST type A'; font-size:18pt;\">Скорость:</span></p></body></html>"
                                     font.pixelSize: 12
                                     textFormat: Text.RichText
-                                    anchors.horizontalCenter: parent.horizontalCenter
+                                }
+
+                                Rectangle {
+                                    id: spd_r1
+                                    color: "#ffffff"
+                                    radius: 10
+                                    width: 50
+                                    height: 30
+                                    border.color: "#a9454aef"
+                                    border.width: 2
+
+                                    Text {
+                                        id: spd_1_d
+                                        text: "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\np, li { white-space: pre-wrap; }\nhr { height: 1px; border-width: 0; }\nli.unchecked::marker { content: \"\\2610\"; }\nli.checked::marker { content: \"\\2612\"; }\n</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'GOST type A'; font-size:18pt;\">96</span></p></body></html>"
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        font.pixelSize: 12
+                                        textFormat: Text.RichText
+                                        anchors.horizontalCenter: parent.horizontalCenter
+                                    }
+                                    Text {
+                                        id: spd_1_i
+                                        text: "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\np, li { white-space: pre-wrap; }\nhr { height: 1px; border-width: 0; }\nli.unchecked::marker { content: \"\\2610\"; }\nli.checked::marker { content: \"\\2612\"; }\n</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'GOST type A'; font-size:18pt;\">град/c</span></p></body></html>"
+                                        anchors.left: parent.left
+                                        font.pixelSize: 12
+                                        topPadding: 3
+                                        leftPadding: 60
+                                        anchors.leftMargin: 0
+                                        textFormat: Text.RichText
+                                    }
                                 }
                             }
 
-                            Text {
-                                id: accl_1
-                                text: "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\np, li { white-space: pre-wrap; }\nhr { height: 1px; border-width: 0; }\nli.unchecked::marker { content: \"\\2610\"; }\nli.checked::marker { content: \"\\2612\"; }\n</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n<p align=\"right\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:18pt;\"> </span><span style=\" font-family:'GOST type A'; font-size:18pt;\">     Ускорение:</span></p></body></html>"
-                                font.pixelSize: 12
-                                textFormat: Text.RichText
-                            }
-
-                            Rectangle {
-                                id: accl_r1
-                                width: angl_r1.width
-                                height: angl_r1.height
-                                color: "#ffffff"
-                                radius: 10
-                                border.color: "#a9454aef"
-                                border.width: 2
+                            Row {
+                                id: row5
+                                spacing: 10
 
                                 Text {
-                                    id: accl_1_d
-                                    text: "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\np, li { white-space: pre-wrap; }\nhr { height: 1px; border-width: 0; }\nli.unchecked::marker { content: \"\\2610\"; }\nli.checked::marker { content: \"\\2612\"; }\n</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'GOST type A'; font-size:18pt;\">543</span></p></body></html>"
-                                    anchors.verticalCenter: parent.verticalCenter
+                                    id: accl_1
+                                    text: "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\np, li { white-space: pre-wrap; }\nhr { height: 1px; border-width: 0; }\nli.unchecked::marker { content: \"\\2610\"; }\nli.checked::marker { content: \"\\2612\"; }\n</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n<p align=\"right\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'GOST type A'; font-size:18pt;\">Ускорение:</span></p></body></html>"
                                     font.pixelSize: 12
                                     textFormat: Text.RichText
-                                    anchors.horizontalCenter: parent.horizontalCenter
+                                }
+
+                                Rectangle {
+                                    id: accl_r1
+                                    color: "#ffffff"
+                                    radius: 10
+                                    width: 50
+                                    height: 30
+                                    border.color: "#a9454aef"
+                                    border.width: 2
+
+                                    Text {
+                                        id: accl_1_d
+                                        text: "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\np, li { white-space: pre-wrap; }\nhr { height: 1px; border-width: 0; }\nli.unchecked::marker { content: \"\\2610\"; }\nli.checked::marker { content: \"\\2612\"; }\n</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'GOST type A'; font-size:18pt;\">543</span></p></body></html>"
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        font.pixelSize: 12
+                                        textFormat: Text.RichText
+                                        anchors.horizontalCenter: parent.horizontalCenter
+                                    }
+                                    Text {
+                                        id: accl_1_i
+                                        text: "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\np, li { white-space: pre-wrap; }\nhr { height: 1px; border-width: 0; }\nli.unchecked::marker { content: \"\\2610\"; }\nli.checked::marker { content: \"\\2612\"; }\n</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'GOST type A'; font-size:18pt;\">град.</span></p></body></html>"
+                                        anchors.left: parent.left
+                                        font.pixelSize: 12
+                                        topPadding: 3
+                                        leftPadding: 60
+                                        anchors.leftMargin: 0
+                                        textFormat: Text.RichText
+                                    }
                                 }
                             }
 
-                            Text {
-                                id: rot_1
-                                text: "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\np, li { white-space: pre-wrap; }\nhr { height: 1px; border-width: 0; }\nli.unchecked::marker { content: \"\\2610\"; }\nli.checked::marker { content: \"\\2612\"; }\n</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n<p align=\"right\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'GOST type A'; font-size:18pt;\">Обороты винта:</span></p></body></html>"
-                                font.pixelSize: 12
-                                textFormat: Text.RichText
-                            }
+                            Row {
+                                id: row6
+                                leftPadding: 0
+                                spacing: 10
 
-                            Rectangle {
-                                id: rot_r1
-                                width: angl_r1.width * 2
-                                height: 30
-                                color: "#ffffff"
-                                radius: 10
-                                border.color: "#a9454aef"
-                                border.width: 2
                                 Text {
-                                    id: rot_1_d
-                                    text: "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\np, li { white-space: pre-wrap; }\nhr { height: 1px; border-width: 0; }\nli.unchecked::marker { content: \"\\2610\"; }\nli.checked::marker { content: \"\\2612\"; }\n</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'GOST type A'; font-size:18pt;\">1200 RPM</span></p></body></html>"
-                                    anchors.verticalCenter: parent.verticalCenter
+                                    id: rot_1
+                                    text: "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\np, li { white-space: pre-wrap; }\nhr { height: 1px; border-width: 0; }\nli.unchecked::marker { content: \"\\2610\"; }\nli.checked::marker { content: \"\\2612\"; }\n</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n<p align=\"right\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'GOST type A'; font-size:18pt;\">Обороты винта:</span></p></body></html>"
                                     font.pixelSize: 12
-                                    anchors.horizontalCenter: parent.horizontalCenter
                                     textFormat: Text.RichText
+                                }
+
+                                Rectangle {
+                                    id: rot_r1
+                                    height: 30
+                                    width: 90
+                                    color: "#ffffff"
+                                    radius: 10
+                                    border.color: "#a9454aef"
+                                    border.width: 2
+                                    Text {
+                                        id: rot_1_d
+                                        text: "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\np, li { white-space: pre-wrap; }\nhr { height: 1px; border-width: 0; }\nli.unchecked::marker { content: \"\\2610\"; }\nli.checked::marker { content: \"\\2612\"; }\n</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'GOST type A'; font-size:18pt;\">1200 RPM</span></p></body></html>"
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        font.pixelSize: 12
+                                        anchors.horizontalCenter: parent.horizontalCenter
+                                        textFormat: Text.RichText
+                                    }
                                 }
                             }
                         }
 
                         Column {
                             id: bl_Coll_btn
-                            anchors.left: bl_Grid.right
                             anchors.right: parent.right
                             anchors.top: parent.top
                             anchors.bottom: parent.bottom
@@ -941,8 +990,7 @@ Column {
 
         Image {
             id: komp_right
-            x: -9
-            y: -9
+
             width: 200
             height: 200
             anchors.right: columnRight.left
